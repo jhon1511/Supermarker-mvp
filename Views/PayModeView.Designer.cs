@@ -156,6 +156,7 @@
             BtnNew.Size = new Size(157, 53);
             BtnNew.TabIndex = 4;
             BtnNew.UseVisualStyleBackColor = true;
+            BtnNew.Click += BtnNew_Click;
             // 
             // DgPayMode
             // 
@@ -273,6 +274,7 @@
             // 
             TxtPayModeId.Location = new Point(38, 36);
             TxtPayModeId.Name = "TxtPayModeId";
+            TxtPayModeId.ReadOnly = true;
             TxtPayModeId.Size = new Size(150, 23);
             TxtPayModeId.TabIndex = 1;
             // 
