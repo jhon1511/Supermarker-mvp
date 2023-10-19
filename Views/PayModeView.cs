@@ -1,27 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Supermarket_mvp.Views
+﻿namespace Supermarket_mvp.Views
 {
     public partial class PayModeView : Form, IPayModeView
     {
         private bool isEdit;
         private bool isSuccessful;
         private string messaje;
+        private TabPage tabPagePayModeDetail;
 
         public PayModeView()
         {
             InitializeComponent();
             AssociateAndRaiseViewEvents();
 
-            tabControl1.TabPages.Remove(tabPagePayModeDetail); 
+            tabControl1.TabPages.Remove(tabPagePayModeDetail);
+
+            BtnClose.Click += delegate { this.Close(); };
         }
 
         private void AssociateAndRaiseViewEvents()
@@ -38,37 +31,37 @@ namespace Supermarket_mvp.Views
 
         }
 
-        public string PayModeId 
-        { 
-          get { return TxtPayModeId.Text; }
-          set { TxtPayModeId.Text = value; } 
+        public string PayModeId
+        {
+            get { return TxtPayModeId.Text; }
+            set { TxtPayModeId.Text = value; }
         }
         public string PayModeName
         {
-           get { return TxtPayModeName.Text; }
-           set { TxtPayModeName.Text = value; }
+            get { return TxtPayModeName.Text; }
+            set { TxtPayModeName.Text = value; }
         }
-        public string PayModeObservacion 
+        public string PayModeObservacion
         {
-            get { return TxtPayModeObservacion.Text; }
-            set { TxtPayModeObservacion.Text = value; }
+            get { return TxtPayModeObservation.Text; }
+            set { TxtPayModeObservation.Text = value; }
         }
-        public string SearchValue 
+        public string SearchValue
         {
             get { return TxtSearch.Text; }
             set { TxtSearch.Text = value; }
         }
-        public bool IsEdit 
+        public bool IsEdit
         {
             get { return isEdit; }
             set { isEdit = value; }
         }
-        public bool IsSuccessful 
+        public bool IsSuccessful
         {
             get { return isSuccessful; }
             set { isSuccessful = value; }
         }
-        public string Message 
+        public string Message
         {
             get { return messaje; }
             set { messaje = value; }
@@ -83,7 +76,31 @@ namespace Supermarket_mvp.Views
 
         public void SetPayModeListBildingSource(BindingSource payModeList)
         {
-            DgPayMode.DataSource = payModeList();
+            DgPayMode.DataSource = payModeList;
+        }
+        private static PayModeView instance;
+
+        public static PayModeView GetInstance(Form parenContainer)
+        {
+
+            if (instance == null || instance.IsDisposed)
+            {
+                instance = new PayModeView();
+                instance.MdiParent = parenContainer;
+
+                instance.FormBorderStyle = FormBorderStyle.None;
+                instance.Dock = DockStyle.Fill;
+            }
+            else
+            {
+                if (instance.WindowState == FormWindowState.Minimized)
+                {
+                    instance.WindowState = FormWindowState.Normal;
+                }
+                instance.BringToFront();
+            }
+            return instance;
+
         }
     }
 }

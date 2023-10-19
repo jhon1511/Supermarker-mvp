@@ -13,8 +13,10 @@ namespace Supermarket_mvp.Presenters
     {
         private IPayModeView view;
         private IPayModeRepository repository;
+        private BindingSource payModeBindingSource;
+        private IEnumerable<PayModeModel> payModeModels;
 
-        public PayModePresenter(IPayModeRepository repository)
+        public PayModePresenter(IPayModeView view, IPayModeRepository repository)
         {
 
             this.payModeBindinSource = new BindingSource();
